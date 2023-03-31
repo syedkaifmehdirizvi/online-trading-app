@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeController 
 {
-	@GetMapping
+	@GetMapping("/")
 	public String hello() 
 	{
 		return "Welcome to Spring Boot App running on AWS EC2 instance";
