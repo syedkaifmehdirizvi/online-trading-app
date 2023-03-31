@@ -40,9 +40,9 @@ public class OrderController
         return "orders";
     }
 
-	@GetMapping("/orders/add")
-	public String showAddOrderForm(Model model) 
-	{
+    // Display the form for adding a new order
+    @GetMapping("/orders/add")
+    public String showAddOrderForm(Model model) {
         // Add necessary data to the model
         List<User> users = userService.getAllUsers();
         List<Instrument> instruments = instrumentService.getAllInstruments();
@@ -52,6 +52,7 @@ public class OrderController
         return "addOrder";
     }
 
+	// Add a new order to the system
     @PostMapping("/orders/add")
     public String addOrder(
             @ModelAttribute("order") Order order) 

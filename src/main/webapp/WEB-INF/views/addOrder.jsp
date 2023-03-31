@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,13 +9,7 @@
 </head>
 <body>
 	<h1>Add Order</h1>
-    <form action="/add" method="post">
-        <label for="userId">User:</label>
-        <select name="userId" required>
-            <c:forEach items="${users}" var="user">
-                <option value="${user.userId}">${user.username}</option>
-            </c:forEach>
-        </select>
+    <form action="/orders/add" method="post">
         <br>
         <label for="instrumentId">Instrument:</label>
         <select name="instrumentId" required>
