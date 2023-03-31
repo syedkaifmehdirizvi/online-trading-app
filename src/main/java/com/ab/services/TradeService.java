@@ -1,7 +1,7 @@
 package com.ab.services;
 
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class TradeService
 	@Autowired
     private TradeRepository tradeRepository;
 
-    public Optional<Trade> getTradeHistoryForUser(User user) 
+    public List<Trade> getTradeHistoryForUser(User user) 
     {
         return tradeRepository.findByUser(user);
     }

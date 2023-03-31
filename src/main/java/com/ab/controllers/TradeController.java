@@ -1,7 +1,6 @@
 package com.ab.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,8 +26,8 @@ public class TradeController {
             return "redirect:/login"; 												// Redirect to login page if 'user' session attribute is not set
         }
 
-        Optional<Trade> tradingHistory = tradeService.getTradeHistoryForUser(user);
+        List<Trade> tradingHistory = tradeService.getTradeHistoryForUser(user);
         model.addAttribute("tradingHistory", tradingHistory);
-        return "tradeHistory";
+        return "tradingHistory";
     }
 }

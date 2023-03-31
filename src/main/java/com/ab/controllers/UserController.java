@@ -1,6 +1,6 @@
 package com.ab.controllers;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,7 @@ public class UserController
     public String getTradeHistoryForUser(@PathVariable int userId, Model model) 
     {
         User user = userService.getUserById(userId);
-        Optional<Trade> tradeHistory = tradeService.getTradeHistoryForUser(user);
+        List<Trade> tradeHistory = tradeService.getTradeHistoryForUser(user);
         model.addAttribute("user", user);
         model.addAttribute("tradeHistory", tradeHistory);
         return "trade-history"; 														// return the name of your view (trade-history.html)

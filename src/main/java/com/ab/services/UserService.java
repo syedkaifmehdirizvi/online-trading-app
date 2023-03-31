@@ -1,7 +1,6 @@
 package com.ab.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,4 +29,15 @@ public class UserService
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+    
+    
+    public User registerUser(String username, String password) 
+    {
+        User newUser = new User();
+        newUser.setUsername(username);
+        newUser.setPassword(password);
+        return userRepository.save(newUser);
+    }
+        
+    
 }
