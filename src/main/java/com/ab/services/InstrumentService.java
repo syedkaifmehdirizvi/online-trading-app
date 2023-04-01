@@ -21,7 +21,7 @@ public class InstrumentService
 	        return instrumentRepository.findAll();
 	    }
 
-	    public Optional<Instrument> getInstrumentById(Integer instrumentId) {
-	        return instrumentRepository.findById(instrumentId);
+	    public Instrument getInstrumentById(Integer instrumentId) {
+	        return instrumentRepository.findById(instrumentId).orElse(null);
 	    }
 }

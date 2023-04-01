@@ -27,19 +27,37 @@ public class OrderService
     private InstrumentRepository instrumentRepository;
     
     
-    
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
-    
-    public Order addOrder(Integer userId, Integer instrumentId, String orderType, double price, Integer quantity, String status) 
-    {
+
+    public Order createOrder(Integer userId, Integer instrumentId, String orderType, double price, Integer quantity, String status) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        Instrument instrument = instrumentRepository.findById(instrumentId).orElseThrow(() -> new RuntimeException("Instrument not found"));
+        LocalDate createdAt = LocalDate.now();
+
+        Order order = new Order();
+        order.setUser(user);
+        order.setInstrument(instrument);
+        order.setOrderType(orderType);
+        order.setPrice(price);
+        order.setQuantity(quantity);
+        order.setStatus(status);
+        order.setCreatedOn(createdAt);
+
+        return orderRepository.save(order);
+    }
+    
+    
+    
+    public Order addOrder(Integer instrumentId, String orderType, double price, Integer quantity, String status) 
+    {
+        //User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         Instrument instrument = instrumentRepository.findById(instrumentId).orElseThrow(() -> new RuntimeException("Instrument not found"));
         LocalDate createdAt = LocalDate.now();
         
         Order order = new Order();
-        order.setUser(user);
+        //order.setUser(user);
         order.setInstrument(instrument);
         order.setOrderType(orderType);
         order.setPrice(price);
@@ -50,16 +68,12 @@ public class OrderService
         return orderRepository.save(order);
     }
     
-    public Order cancelOrder(Integer orderId) 
-    {
+    public void cancelOrder(Integer orderId) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
         if (optionalOrder.isPresent()) {
             Order order = optionalOrder.get();
-            updateOrderStatus(orderId, "Cancelled");
-            return orderRepository.save(order);
-        } 
-        else 
-        {
+            orderRepository.delete(order);
+        } else {
             throw new RuntimeException("Order not found");
         }
     }

@@ -9,9 +9,10 @@
 <body>
     <h1>Replace Order</h1>
     <form action="/orders/replace/${order.orderId}" method="post">
+        <input type="hidden" name="instrumentId" value="${order.instrument.instrumentId}">
         <br>
-        <label for="instrumentId">Instrument:</label>
-        <select name="instrumentId" required>
+        <label for="instrument">Instrument:</label>
+        <select name="instrument" disabled>
             <c:forEach items="${instruments}" var="instrument">
                 <option value="${instrument.instrumentId}" <c:if test="${instrument.instrumentId == order.instrument.instrumentId}">selected</c:if>>${instrument.name}</option>
             </c:forEach>
