@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ab.entities.Trade;
 import com.ab.entities.User;
@@ -19,15 +20,17 @@ public class TradeController {
     private TradeService tradeService;
 
     @GetMapping("/trades/history")
-    public String getTradeHistory(Model model, HttpSession session) {
+    public ModelAndView getTradeHistory(HttpSession session) {
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
-            return "redirect:/login"; 												// Redirect to login page if 'user' session attribute is not set
+            return new ModelAndView("redirect:/login"); // Redirect to login page if 'user' session attribute is not set
         }
 
         List<Trade> tradingHistory = tradeService.getTradeHistoryForUser(user);
-        model.addAttribute("tradingHistory", tradingHistory);
-        return "tradingHistory";
+        ModelAndView mav = new ModelAndView("tradingHistory");
+        mav.addObject("tradingHistory", tradingHistory);
+        return mav;
     }
+
 }

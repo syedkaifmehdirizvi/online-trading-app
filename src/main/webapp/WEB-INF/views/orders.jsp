@@ -42,6 +42,8 @@
     </table>
     
     <a href="/orders/add">Add Order</a>
+    
+    <a href="/"><button>Return</button></a>
 
 </body>
 </html>

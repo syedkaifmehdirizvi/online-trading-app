@@ -19,5 +19,7 @@
     <c:if test="${not empty message}">
         <p>${message}</p>
     </c:if>
+    
+    <a href="/"><button>Return</button></a>
 </body>
 </html>

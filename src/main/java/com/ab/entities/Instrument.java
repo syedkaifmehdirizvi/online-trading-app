@@ -20,24 +20,21 @@ public class Instrument
     private String symbol;
     
     @Column(name = "name")
-    private String name;
+    private String instrumentName;
     
     @Column(name = "exchange")
     private String exchange;
 
-    
-    
-    
 	public Instrument() {
 		super();
 	}
 
 
-	public Instrument(int instrumentId, String symbol, String name, String exchange) {
+	public Instrument(int instrumentId, String symbol, String instrumentName, String exchange) {
 		super();
 		this.instrumentId = instrumentId;
 		this.symbol = symbol;
-		this.name = name;
+		this.instrumentName = instrumentName;
 		this.exchange = exchange;
 	}
 
@@ -58,12 +55,12 @@ public class Instrument
 		this.symbol = symbol;
 	}
 
-	public String getName() {
-		return name;
+	public String getInstrumentName() {
+		return instrumentName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String instrumentName) {
+		this.instrumentName = instrumentName;
 	}
 
 	public String getExchange() {

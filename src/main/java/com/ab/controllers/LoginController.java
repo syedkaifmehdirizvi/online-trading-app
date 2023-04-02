@@ -22,6 +22,8 @@ public class LoginController {
         return "login";
     }
 
+    
+    // is this with spring security?
     @PostMapping("/login")
     public String loginUser(@RequestParam("username") String username,
                             @RequestParam("password") String password,
