@@ -77,10 +77,15 @@ public class OrderService
         order.setOrderType(orderType);
         order.setPrice(price);
         order.setQuantity(quantity);
-        order.setStatus(status);
+        order.setStatus("OPEN");
         order.setCreatedOn(createdAt);
         
-        return orderRepository.save(order);
+        // return orderRepository.save(order);
+        
+        Order savedOrder = orderRepository.save(order);
+        findMatchingOrders(savedOrder);
+
+        return savedOrder;
     }
     
     public void cancelOrder(Integer orderId) {
@@ -106,7 +111,12 @@ public class OrderService
             order.setQuantity(newQuantity);
             updateOrderStatus(orderId, "Replaced");
             
-            return orderRepository.save(order);
+            //return orderRepository.save(order);
+            
+            Order updatedOrder = orderRepository.save(order);
+            findMatchingOrders(updatedOrder);
+            
+            return updatedOrder;
         } 
         else 
         {
@@ -152,6 +162,7 @@ public class OrderService
 			} else if (matchingOrder.getQuantity() > order.getQuantity()) {
 				// update matching order quantity and save
 				matchingOrder.setQuantity(matchingOrder.getQuantity() - order.getQuantity());
+				matchingOrder.setStatus("PARTIALLY FILLED");
 				orderRepository.save(matchingOrder);
 				
 				// remove the buy order that fully matched

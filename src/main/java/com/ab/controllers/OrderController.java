@@ -56,7 +56,7 @@ public class OrderController
 	// Search buy orders by instrument name
     @GetMapping("/orders/search") 
     public ModelAndView searchBuyByInstrumentName(@RequestParam("instrumentName") String instrumentName) { 
-	    List<Order> buyOrderSearch = orderService.getByInstrumentName(instrumentName); 
+	    List<Order> buyOrderSearch = orderService.getByInstrumentName (instrumentName); 
 	    // change the view from buy-search-results to the correct jsp page
 	    ModelAndView mav = new ModelAndView("buy-search-results"); 
 	    mav.addObject("buyOrderSearch", buyOrderSearch); 

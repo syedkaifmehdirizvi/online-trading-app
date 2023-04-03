@@ -13,7 +13,7 @@
         <label for="instrumentId">Instrument:</label>
         <select name="instrumentId" required>
             <c:forEach items="${instruments}" var="instrument">
-                <option value="${instrument.instrumentId}">${instrument.symbol} - ${instrument.name} (${instrument.exchange})</option>
+                <option value="${instrument.instrumentId}">${instrument.symbol} - ${instrument.instrumentName} (${instrument.exchange})</option>
             </c:forEach>
         </select>
         <br>

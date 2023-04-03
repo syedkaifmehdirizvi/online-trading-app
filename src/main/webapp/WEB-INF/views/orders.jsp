@@ -31,10 +31,10 @@
     <td>${order.createdOn}</td>
     <td>
         <form action="/orders/replace/${order.orderId}" method="get">
-            <button type="submit">Replace</button>
+            <button type="submit">Update</button>
         </form>
         <form action="/orders/cancel/${order.orderId}" method="get">
-            <button type="submit">Cancel</button>
+            <button type="submit">Delete</button>
         </form>
     </td>
     </tr>
