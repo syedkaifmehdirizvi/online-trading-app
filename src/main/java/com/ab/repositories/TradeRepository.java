@@ -12,4 +12,5 @@ import com.ab.entities.User;
 public interface TradeRepository extends JpaRepository<Trade, Integer> 
 {
 	List<Trade> findByUser(User user);
+
 }
