@@ -39,7 +39,7 @@ public class OrderController
     
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     public String showOrders(Model model) {
-        List<Order> orders = orderService.getAllOrders();
+        List<Order> orders = orderService.getOrderByStatus();
         model.addAttribute("orders", orders);
         return "orders";
     }
