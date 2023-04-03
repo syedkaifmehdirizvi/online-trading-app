@@ -109,7 +109,7 @@ public class OrderService
             order.setOrderType(newOrderType);
             order.setPrice(newPrice);
             order.setQuantity(newQuantity);
-            updateOrderStatus(orderId, "Replaced");
+            // Removed the line that updates the status to "Replaced"
             
             //return orderRepository.save(order);
             
@@ -177,6 +177,10 @@ public class OrderService
 			}
 		}
 		return matchingOrders;
+	}
+
+	public List<Order> getOrdersForUser(User user) {
+	    return orderRepository.findByUser(user);
 	}
 	
 }

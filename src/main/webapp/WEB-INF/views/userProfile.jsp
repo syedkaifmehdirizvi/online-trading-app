@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Orders</title>
+<title>Profile</title>
 </head>
 <body>
 
-    <h1>Orders</h1>
+	<h1>${user.firstName}'s Profile</h1>
     
     <table>
     <tr>
@@ -39,7 +39,34 @@
     </c:forEach>
     </table>
     
-    <a href="/orders/add">Add Order</a>
+    
+    <h1>Trading History</h1>
+    
+    <table>
+    <tr>
+    <th>Trade ID</th>    
+    <th>Order ID</th>
+    <th>Instrument Name</th>
+    <th>User</th>
+    <th>Trade Type</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Created On</th>
+    </tr>
+    
+    <c:forEach var="trade" items="${tradingHistory}">
+    <tr>
+    <td>${trade.tradeId}</td>
+    <td>${trade.order.orderId}</td>
+    <td>${trade.instrument.instrumentName}</td>
+    <td>${trade.user.username}</td>
+    <td>${trade.tradeType}</td>
+    <td>${trade.price}</td>
+    <td>${trade.quantity}</td>
+    <td>${trade.createdOn}</td>
+    </tr>
+    </c:forEach>
+    </table>
 
 </body>
 </html>
