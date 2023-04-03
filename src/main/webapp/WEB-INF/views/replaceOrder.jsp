@@ -14,7 +14,7 @@
         <label for="instrument">Instrument:</label>
         <select name="instrument" disabled>
             <c:forEach items="${instruments}" var="instrument">
-                <option value="${instrument.instrumentId}" <c:if test="${instrument.instrumentId == order.instrument.instrumentId}">selected</c:if>>${instrument.name}</option>
+                <option value="${instrument.instrumentId}" <c:if test="${instrument.instrumentId == order.instrument.instrumentId}">selected</c:if>>${instrument.instrumentName}</option>
             </c:forEach>
         </select>
         <br>
