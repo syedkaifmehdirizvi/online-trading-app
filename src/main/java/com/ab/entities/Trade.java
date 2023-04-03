@@ -64,7 +64,6 @@ public class Trade
 	}
 
 	
-	
 	public int getTradeId() {
 		return tradeId;
 	}

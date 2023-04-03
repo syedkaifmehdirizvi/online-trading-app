@@ -1,6 +1,7 @@
 package com.ab.services;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.ab.entities.Instrument;
 import com.ab.entities.Order;
+import com.ab.entities.Trade;
 import com.ab.entities.User;
 import com.ab.repositories.InstrumentRepository;
 import com.ab.repositories.OrderRepository;
@@ -149,34 +151,74 @@ public class OrderService
     }
  
 	// find matching orders algo
-	public List<Order> findMatchingOrders(Order order){
-		List<Order> matchingOrders = orderRepository.findMatchingOrders(
-				order.getInstrument().getSymbol(), order.getOrderType(), order.getPrice(), order.getQuantity());
-		
-		// Process trades
-		for (Order matchingOrder : matchingOrders) {
-			if(matchingOrder.getQuantity() == order.getQuantity()) {
-				// remove orders if full match
-				orderRepository.delete(matchingOrder);
-				orderRepository.delete(order);
-			} else if (matchingOrder.getQuantity() > order.getQuantity()) {
-				// update matching order quantity and save
-				matchingOrder.setQuantity(matchingOrder.getQuantity() - order.getQuantity());
-				matchingOrder.setStatus("PARTIALLY FILLED");
-				orderRepository.save(matchingOrder);
-				
-				// remove the buy order that fully matched
-				orderRepository.delete(order);
-			} else {
-				// update the buy order quantity and save
-				order.setQuantity(order.getQuantity() - matchingOrder.getQuantity());
-				orderRepository.save(order);
-				
-				// remove the sell order that fully matched
-				orderRepository.delete(matchingOrder);
-			}
-		}
-		return matchingOrders;
-	}
+    public List<Trade> findMatchingOrders(Order order) {
+        List<Order> matchingOrders = orderRepository.findMatchingOrders(
+                order.getInstrument().getSymbol(), order.getOrderType(), order.getPrice(), order.getQuantity());
+
+        List<Trade> trades = new ArrayList<>();
+
+        // Process trades
+        for (Order matchingOrder : matchingOrders) {
+            if (matchingOrder.getQuantity() == order.getQuantity()) {
+              
+                Trade trade = new Trade();
+                trade.setOrder(order);
+                trade.setInstrument(order.getInstrument());
+                trade.setUser(order.getUser());
+                trade.setTradeType(order.getOrderType());
+                trade.setPrice(order.getPrice());
+                trade.setQuantity(order.getQuantity());
+                trade.setCreatedOn(LocalDate.now());
+                
+                trades.add(trade);
+
+                // remove orders if full match
+                orderRepository.delete(matchingOrder);
+                orderRepository.delete(order);
+                
+            } else if (matchingOrder.getQuantity() > order.getQuantity()) {
+                
+            	Trade trade = new Trade();
+                trade.setOrder(order);
+                trade.setInstrument(order.getInstrument());
+                trade.setUser(order.getUser());
+                trade.setTradeType(order.getOrderType());
+                trade.setPrice(order.getPrice());
+                trade.setQuantity(order.getQuantity());
+                trade.setCreatedOn(LocalDate.now());
+            	
+            	trades.add(trade);
+
+            	// update matching order quantity and save
+                matchingOrder.setQuantity(matchingOrder.getQuantity() - order.getQuantity());
+                matchingOrder.setStatus("PARTIALLY FILLED");
+                orderRepository.save(matchingOrder);
+                // remove the buy order that fully matched
+                orderRepository.delete(order);
+                break;
+            } else {
+            	
+            	Trade trade = new Trade();
+                trade.setOrder(order);
+                trade.setInstrument(order.getInstrument());
+                trade.setUser(order.getUser());
+                trade.setTradeType(order.getOrderType());
+                trade.setPrice(order.getPrice());
+                trade.setQuantity(order.getQuantity());
+                trade.setCreatedOn(LocalDate.now());
+            	
+            	trades.add(trade);
+            	
+                // update the buy order quantity and save
+                order.setQuantity(order.getQuantity() - matchingOrder.getQuantity());
+                orderRepository.save(order);
+                // remove the sell order that fully matched
+                orderRepository.delete(matchingOrder);
+            }
+        }
+
+        return trades;
+    }
+
 	
 }
