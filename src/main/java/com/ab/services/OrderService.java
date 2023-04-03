@@ -30,6 +30,21 @@ public class OrderService
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
+    
+    // get all orders by BUY order type
+	public List<Order> getAllBuyOrders(){
+		return orderRepository.findAllByOrderType("BUY");
+	}
+	
+	// get all orders by SELL order type
+	public List<Order> getAllSellOrders(){
+		return orderRepository.findAllByOrderType("SELL");
+	}
+	
+	// get orders by instrument name
+	public List<Order> getByInstrumentName(String instrumentName){ 
+		return orderRepository.findByInstrumentName(instrumentName); 
+	}
 
     public Order createOrder(Integer userId, Integer instrumentId, String orderType, double price, Integer quantity, String status) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
@@ -123,5 +138,34 @@ public class OrderService
         return orderRepository.findById(orderId);
     }
  
-    
+	// find matching orders algo
+	public List<Order> findMatchingOrders(Order order){
+		List<Order> matchingOrders = orderRepository.findMatchingOrders(
+				order.getInstrument().getSymbol(), order.getOrderType(), order.getPrice(), order.getQuantity());
+		
+		// Process trades
+		for (Order matchingOrder : matchingOrders) {
+			if(matchingOrder.getQuantity() == order.getQuantity()) {
+				// remove orders if full match
+				orderRepository.delete(matchingOrder);
+				orderRepository.delete(order);
+			} else if (matchingOrder.getQuantity() > order.getQuantity()) {
+				// update matching order quantity and save
+				matchingOrder.setQuantity(matchingOrder.getQuantity() - order.getQuantity());
+				orderRepository.save(matchingOrder);
+				
+				// remove the buy order that fully matched
+				orderRepository.delete(order);
+			} else {
+				// update the buy order quantity and save
+				order.setQuantity(order.getQuantity() - matchingOrder.getQuantity());
+				orderRepository.save(order);
+				
+				// remove the sell order that fully matched
+				orderRepository.delete(matchingOrder);
+			}
+		}
+		return matchingOrders;
+	}
+	
 }
