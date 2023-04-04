@@ -32,7 +32,7 @@ public class LoginController {
 
         if (user != null && user.getPassword().equals(password)) {
             session.setAttribute("user", user);
-            return "redirect:/trades/history";
+            return "redirect:/profile";
         } else {
             model.addAttribute("error", "Invalid username or password.");
             return "login";
