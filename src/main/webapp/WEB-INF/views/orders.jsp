@@ -12,28 +12,26 @@
     
     <table>
     <tr>
-    <th>Order ID</th>    
+    <th>Instrument Name</th>
     <th>Order Type</th>
     <th>Price</th>
     <th>Quantity</th>
     <th>Status</th>
-    <th>Created On</th>
     <th>Action</th>
     </tr>
     
     <c:forEach var="order" items="${orders}">
     <tr>
-    <td>${order.orderId}</td>
+    <td>${order.instrument.instrumentName}</td>
     <td>${order.orderType}</td>
     <td>${order.price}</td>
     <td>${order.quantity}</td>
     <td>${order.status}</td>
-    <td>${order.createdOn}</td>
     <td>
-        <form action="/orders/replace/${order.orderId}" method="get">
+        <form action="/orders/replace/${order.orderId}" method="get" style="display:inline;">
             <button type="submit">Update</button>
         </form>
-        <form action="/orders/cancel/${order.orderId}" method="get">
+        <form action="/orders/cancel/${order.orderId}" method="get" style="display:inline;">
             <button type="submit">Delete</button>
         </form>
     </td>

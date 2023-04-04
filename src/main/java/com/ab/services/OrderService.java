@@ -72,28 +72,28 @@ public class OrderService
     
     
     
-    public Order addOrder(Integer instrumentId, String orderType, double price, Integer quantity, String status) 
-    {
-        //User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        Instrument instrument = instrumentRepository.findById(instrumentId).orElseThrow(() -> new RuntimeException("Instrument not found"));
-        LocalDate createdAt = LocalDate.now();
-        
-        Order order = new Order();
-        //order.setUser(user);
-        order.setInstrument(instrument);
-        order.setOrderType(orderType);
-        order.setPrice(price);
-        order.setQuantity(quantity);
-        order.setStatus("OPEN");
-        order.setCreatedOn(createdAt);
-        
-        // return orderRepository.save(order);
-        
-        Order savedOrder = orderRepository.save(order);
-        findMatchingOrders(savedOrder);
-
-        return savedOrder;
-    }
+//    public Order addOrder(Integer instrumentId, String orderType, double price, Integer quantity, String status) 
+//    {
+//        //User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+//        Instrument instrument = instrumentRepository.findById(instrumentId).orElseThrow(() -> new RuntimeException("Instrument not found"));
+//        LocalDate createdAt = LocalDate.now();
+//        
+//        Order order = new Order();
+//        //order.setUser(user);
+//        order.setInstrument(instrument);
+//        order.setOrderType(orderType);
+//        order.setPrice(price);
+//        order.setQuantity(quantity);
+//        order.setStatus("OPEN");
+//        order.setCreatedOn(createdAt);
+//        
+//        // return orderRepository.save(order);
+//        
+//        Order savedOrder = orderRepository.save(order);
+//        findMatchingOrders(savedOrder);
+//
+//        return savedOrder;
+//    }
     
     public void cancelOrder(Integer orderId) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
@@ -116,7 +116,7 @@ public class OrderService
             order.setOrderType(newOrderType);
             order.setPrice(newPrice);
             order.setQuantity(newQuantity);
-            updateOrderStatus(orderId, "Replaced");
+            // Removed the line that updates the status to "Replaced"
             
             //return orderRepository.save(order);
             
@@ -156,6 +156,8 @@ public class OrderService
     }
  
 	// find matching orders algo
+
+
     @Transactional
     public List<Trade> findMatchingOrders(Order order) {
         List<Order> matchingOrders = orderRepository.findMatchingOrders(
@@ -221,7 +223,6 @@ public class OrderService
         trade.setCreatedOn(LocalDate.now());
         return trade;
     }
-
 
 	
 }

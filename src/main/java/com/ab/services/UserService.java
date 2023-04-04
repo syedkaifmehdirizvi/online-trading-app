@@ -30,10 +30,12 @@ public class UserService
         return userRepository.findByUsername(username);
     }
     
-    
-    public User registerUser(String username, String password) 
+    public User registerUser(String firstName, String lastName, String email, String username, String password) 
     {
         User newUser = new User();
+        newUser.setFirstName(firstName);
+        newUser.setLastName(lastName);
+        newUser.setEmail(email);
         newUser.setUsername(username);
         newUser.setPassword(password);
         return userRepository.save(newUser);
