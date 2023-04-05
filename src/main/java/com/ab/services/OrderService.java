@@ -157,6 +157,10 @@ public class OrderService
  
 	// find matching orders algo
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2641c88c68326eb37415a5398f75683cd0a8372
     @Transactional
     public List<Trade> findMatchingOrders(Order order) {
         List<Order> matchingOrders = orderRepository.findMatchingOrders(
@@ -224,10 +228,13 @@ public class OrderService
         return trade;
     }
 
+<<<<<<< HEAD
 	public List<Order> getOrdersForUser(User user) 
 	{
 		return orderRepository.findByUser(user);
 	}
 
+=======
+>>>>>>> a2641c88c68326eb37415a5398f75683cd0a8372
 	
 }
