@@ -118,8 +118,8 @@ public class OrderController
         order.setInstrument(instrument);
 
 
-        orderService.addOrder(order.getInstrument().getInstrumentId(), order.getOrderType().toUpperCase(), order.getPrice(), order.getQuantity(), order.getStatus());
-        return "redirect:/orders";
+        //orderService.addOrder(order.getInstrument().getInstrumentId(), order.getOrderType().toUpperCase(), order.getPrice(), order.getQuantity(), order.getStatus());
+        //return "redirect:/orders";
 
         orderService.createOrder(order.getUser().getUserId(), order.getInstrument().getInstrumentId(), order.getOrderType(), order.getPrice(), order.getQuantity(), order.getStatus());
 
@@ -141,8 +141,6 @@ public class OrderController
         model.addAttribute("sellOrders", sellOrders);
         
         return "userProfile";
-       
-
 
     }
 
