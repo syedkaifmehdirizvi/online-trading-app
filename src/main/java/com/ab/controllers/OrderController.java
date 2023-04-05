@@ -36,7 +36,7 @@ public class OrderController
     @Autowired
     private InstrumentService instrumentService;
     
-    
+    // remove this or adjust so we can have seperate tables for buy and sell
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     public String showOrders(Model model) {
         List<Order> orders = orderService.getOrderByStatus();
@@ -106,7 +106,7 @@ public class OrderController
         Instrument instrument = instrumentService.getInstrumentById(instrumentId);
         order.setInstrument(instrument);
 
-        orderService.addOrder(order.getInstrument().getInstrumentId(), order.getOrderType(), order.getPrice(), order.getQuantity(), order.getStatus());
+        orderService.addOrder(order.getInstrument().getInstrumentId(), order.getOrderType().toUpperCase(), order.getPrice(), order.getQuantity(), order.getStatus());
         return "redirect:/orders";
     }
 
