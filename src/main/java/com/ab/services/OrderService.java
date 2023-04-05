@@ -73,31 +73,7 @@ public class OrderService
 
         return createdOrder;
     }
-    
-
-    
-//    public Order addOrder(Integer instrumentId, String orderType, double price, Integer quantity, String status) 
-//    {
-//        //User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-//        Instrument instrument = instrumentRepository.findById(instrumentId).orElseThrow(() -> new RuntimeException("Instrument not found"));
-//        LocalDate createdAt = LocalDate.now();
-//        
-//        Order order = new Order();
-//        //order.setUser(user);
-//        order.setInstrument(instrument);
-//        order.setOrderType(orderType);
-//        order.setPrice(price);
-//        order.setQuantity(quantity);
-//        order.setStatus("OPEN");
-//        order.setCreatedOn(createdAt);
-//        
-//        // return orderRepository.save(order);
-        
-        Order savedOrder = orderRepository.save(order);
-       findMatchingOrders(savedOrder);
-
-       return savedOrder;
-   }
+  
     
     // rename to deleteOrder
     public void cancelOrder(Integer orderId) {

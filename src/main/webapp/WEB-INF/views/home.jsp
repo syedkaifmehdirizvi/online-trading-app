@@ -10,6 +10,8 @@
 
 	<h1>Home Page</h1>
 	
+	<h2>${teamName}</h2>
+	
 	<a href="/register">Register</a>
 	<a href="/login">Login</a>
 	<a href="/orders">Orders</a>

@@ -66,7 +66,7 @@ public class OrderTest {
 
 	    when(orderServiceMock.getAllBuyOrders()).thenReturn(buyOrders);
 
-	    ModelAndView mav = orderControllerMock.getAllBuyOrders();
+	    ModelAndView mav = orderControllerMock.getAllBuyOrders(null);
 	    List<Order> actualOrders = (List<Order>) mav.getModel().get("buyOrders");
 
 	    assertEquals(buyOrders, actualOrders);
@@ -84,7 +84,7 @@ public class OrderTest {
 
 	    when(orderServiceMock.getAllSellOrders()).thenReturn(sellOrders);
 
-	    ModelAndView mav = orderControllerMock.getAllSellOrders();
+	    ModelAndView mav = orderControllerMock.getAllSellOrders(null);
 	    List<Order> actualOrders = (List<Order>) mav.getModel().get("sellOrders");
 	    
 	    assertEquals(sellOrders, actualOrders);
