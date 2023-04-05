@@ -32,7 +32,7 @@ public class UserController
         List<Trade> tradeHistory = tradeService.getTradeHistoryForUser(user);
         model.addAttribute("user", user);
         model.addAttribute("tradeHistory", tradeHistory);
-        return "trade-history"; 														// return the name of your view (trade-history.html)
+        return "trade-history"; // return the name of your view (trade-history.html)
     }
     
     @PostMapping("/users/{userId}/trades")
