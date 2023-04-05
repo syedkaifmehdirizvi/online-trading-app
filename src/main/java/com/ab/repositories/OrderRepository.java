@@ -25,16 +25,11 @@ public interface OrderRepository extends JpaRepository<Order, Integer>
 	@Query("FROM Order i WHERE i.instrument.symbol = :symbol AND i.orderType != :orderType AND i.price = :price AND i.quantity >= :quantity AND i.status != 'FILLED'")
 	public List<Order> findMatchingOrders(@Param("symbol") String symbol, @Param("orderType") String orderType, @Param("price") double price, @Param("quantity") int quantity);
 
-<<<<<<< HEAD
 	
 	@Query("FROM Order i WHERE i.status != 'FILLED'")
 	public List<Order> findOrderByStatus();
 	
 	List<Order> findByUser(User user);
-=======
 
-	
-	@Query("FROM Order i WHERE i.status != 'FILLED'")
-	public List<Order> findOrderByStatus();
->>>>>>> a2641c88c68326eb37415a5398f75683cd0a8372
+
 }
