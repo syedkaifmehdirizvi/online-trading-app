@@ -36,7 +36,7 @@ public class OrderController
     @Autowired
     private InstrumentService instrumentService;
     
-    
+    // remove this or adjust so we can have seperate tables for buy and sell
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     public String showOrders(Model model, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("user");
@@ -117,7 +117,12 @@ public class OrderController
         Instrument instrument = instrumentService.getInstrumentById(instrumentId);
         order.setInstrument(instrument);
 
+
+        orderService.addOrder(order.getInstrument().getInstrumentId(), order.getOrderType().toUpperCase(), order.getPrice(), order.getQuantity(), order.getStatus());
+        return "redirect:/orders";
+
         orderService.createOrder(order.getUser().getUserId(), order.getInstrument().getInstrumentId(), order.getOrderType(), order.getPrice(), order.getQuantity(), order.getStatus());
+
         
         // Add the new order to the model attributes for both views
         List<Order> orders = orderService.getOrdersForUser(loggedInUser);
@@ -136,6 +141,9 @@ public class OrderController
         model.addAttribute("sellOrders", sellOrders);
         
         return "userProfile";
+       
+
+
     }
 
     

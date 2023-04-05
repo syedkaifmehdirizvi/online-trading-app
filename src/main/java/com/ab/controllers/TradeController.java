@@ -23,7 +23,7 @@ public class TradeController {
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
-            return "redirect:/login"; 												// Redirect to login page if 'user' session attribute is not set
+            return "redirect:/login"; // Redirect to login page if 'user' session attribute is not set
         }
 
         List<Trade> tradingHistory = tradeService.getTradeHistoryForUser(user);
