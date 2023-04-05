@@ -67,10 +67,14 @@ public class OrderService
         order.setStatus("OPEN");
         order.setCreatedOn(createdAt);
 
-        return orderRepository.save(order);
+        // return orderRepository.save(order);
+        Order createdOrder = orderRepository.save(order);
+        findMatchingOrders(createdOrder);
+
+        return createdOrder;
     }
     
-    
+
     
 //    public Order addOrder(Integer instrumentId, String orderType, double price, Integer quantity, String status) 
 //    {
@@ -88,13 +92,12 @@ public class OrderService
 //        order.setCreatedOn(createdAt);
 //        
 //        // return orderRepository.save(order);
-//        
-//        Order savedOrder = orderRepository.save(order);
-//        findMatchingOrders(savedOrder);
-//
-//        return savedOrder;
-//    }
+        
+  
+
+
     
+    // rename to deleteOrder
     public void cancelOrder(Integer orderId) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
         if (optionalOrder.isPresent()) {
@@ -105,6 +108,7 @@ public class OrderService
         }
     }
     
+    // rename to updateOrder
     public Order replaceOrder(Integer orderId, Integer newInstrumentId, String newOrderType, double newPrice, Integer newQuantity)
     {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
@@ -116,7 +120,7 @@ public class OrderService
             order.setOrderType(newOrderType.toUpperCase());
             order.setPrice(newPrice);
             order.setQuantity(newQuantity);
-            // Removed the line that updates the status to "Replaced"
+
             
             //return orderRepository.save(order);
             
@@ -131,6 +135,7 @@ public class OrderService
         }
     }
     
+    // what is this used for?
     public void updateOrderStatus(Integer orderId, String status) 
     {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
@@ -146,6 +151,7 @@ public class OrderService
         
     }
     
+    // not needed as we will use trade orders to display filled orders to the user?
     public List<Order> getFilledOrders() 
     {
         return orderRepository.findFilledOrders();
@@ -183,12 +189,12 @@ public class OrderService
                 tradeRepository.save(trade);
                 trades.add(trade);
 
-                // update matching order quantity and save
+                // update matching order status and save
                 matchingOrder.setQuantity(matchingOrder.getQuantity() - order.getQuantity());
                 matchingOrder.setStatus("PARTIALLY FILLED");
                 orderRepository.save(matchingOrder);
 
-                // update buy order quantity and save
+                // update buy order status and save
                 order.setStatus("FILLED");
                 orderRepository.save(order);
 
@@ -198,7 +204,7 @@ public class OrderService
                 tradeRepository.save(trade);
                 trades.add(trade);
 
-                // update buy order quantity and save
+                // update buy order quantity, status and save
                 order.setQuantity(order.getQuantity() - matchingOrder.getQuantity());
                 order.setStatus("PARTIALLY FILLED");
                 orderRepository.save(order);
@@ -225,11 +231,12 @@ public class OrderService
         return trade;
     }
 
-    
+
 	public List<Order> getOrdersForUser(User user) 
 	{
 		return orderRepository.findByUser(user);
 	}
+
 
 	
 }
