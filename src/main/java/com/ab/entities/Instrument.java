@@ -24,9 +24,7 @@ public class Instrument
     
     @Column(name = "exchange")
     private String exchange;
-
-    
-    
+   
     
 	public Instrument() {
 		super();
