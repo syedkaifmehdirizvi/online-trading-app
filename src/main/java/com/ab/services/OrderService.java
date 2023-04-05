@@ -74,30 +74,30 @@ public class OrderService
         return createdOrder;
     }
     
+
     
-    // remove this
-    public Order addOrder(Integer instrumentId, String orderType, double price, Integer quantity, String status) 
-    {
-        //User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        Instrument instrument = instrumentRepository.findById(instrumentId).orElseThrow(() -> new RuntimeException("Instrument not found"));
-        LocalDate createdAt = LocalDate.now();
-        
-        Order order = new Order();
-        //order.setUser(user);
-        order.setInstrument(instrument);
-        order.setOrderType(orderType);
-        order.setPrice(price);
-        order.setQuantity(quantity);
-        order.setStatus("OPEN");
-        order.setCreatedOn(createdAt);
-        
-        // return orderRepository.save(order);
+//    public Order addOrder(Integer instrumentId, String orderType, double price, Integer quantity, String status) 
+//    {
+//        //User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+//        Instrument instrument = instrumentRepository.findById(instrumentId).orElseThrow(() -> new RuntimeException("Instrument not found"));
+//        LocalDate createdAt = LocalDate.now();
+//        
+//        Order order = new Order();
+//        //order.setUser(user);
+//        order.setInstrument(instrument);
+//        order.setOrderType(orderType);
+//        order.setPrice(price);
+//        order.setQuantity(quantity);
+//        order.setStatus("OPEN");
+//        order.setCreatedOn(createdAt);
+//        
+//        // return orderRepository.save(order);
         
         Order savedOrder = orderRepository.save(order);
-        findMatchingOrders(savedOrder);
+       findMatchingOrders(savedOrder);
 
-        return savedOrder;
-    }
+       return savedOrder;
+   }
     
     // rename to deleteOrder
     public void cancelOrder(Integer orderId) {
@@ -122,6 +122,7 @@ public class OrderService
             order.setOrderType(newOrderType);
             order.setPrice(newPrice);
             order.setQuantity(newQuantity);
+
             
             //return orderRepository.save(order);
             
@@ -163,8 +164,7 @@ public class OrderService
     }
  
 	// find matching orders algo
-    // it only matches with single orders at a time
-    // if price + name + !=type match then make trade - update quantity?
+
     @Transactional
     public List<Trade> findMatchingOrders(Order order) {
         List<Order> matchingOrders = orderRepository.findMatchingOrders(
@@ -230,5 +230,6 @@ public class OrderService
         trade.setCreatedOn(LocalDate.now());
         return trade;
     }
+
 	
 }

@@ -102,12 +102,25 @@ public class OrderController
         User loggedInUser = (User) session.getAttribute("user");
         order.setUser(loggedInUser);
 
+        // Check if the loggedInUser is not null
+        if (loggedInUser == null) {
+            return "redirect:/login"; // Redirect to login page if the user is not logged in
+        }
+
+        // Set the user and the Instrument object for the Order
+        order.setUser(loggedInUser);
+        
         // Set the Instrument object for the Order
         Instrument instrument = instrumentService.getInstrumentById(instrumentId);
         order.setInstrument(instrument);
 
+
         orderService.addOrder(order.getInstrument().getInstrumentId(), order.getOrderType().toUpperCase(), order.getPrice(), order.getQuantity(), order.getStatus());
         return "redirect:/orders";
+
+        orderService.createOrder(order.getUser().getUserId(), order.getInstrument().getInstrumentId(), order.getOrderType(), order.getPrice(), order.getQuantity(), order.getStatus());
+        return "redirect:/profile";
+
     }
 
     

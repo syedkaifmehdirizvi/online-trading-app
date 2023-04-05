@@ -13,7 +13,7 @@ import com.ab.services.UserService;
 @Controller
 public class RegisterController {
 
-    @Autowired
+	@Autowired
     private UserService userService;
 
     @GetMapping("/register")
@@ -22,13 +22,19 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {
+    public String registerUser(
+            @RequestParam("fname") String firstName,
+            @RequestParam("lname") String lastName,
+            @RequestParam("email") String email,
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+            Model model) {
         User existingUser = userService.getUserByUsername(username);
         if (existingUser != null) {
             model.addAttribute("message", "Username already exists. Please choose a different one.");
             return "register";
         }
-        userService.registerUser(username, password);
+        userService.registerUser(firstName, lastName, email, username, password);
         model.addAttribute("message", "Registration successful. Please login.");
         return "login";
     }
