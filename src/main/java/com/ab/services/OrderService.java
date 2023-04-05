@@ -61,7 +61,7 @@ public class OrderService
         Order order = new Order();
         order.setUser(user);
         order.setInstrument(instrument);
-        order.setOrderType(orderType);
+        order.setOrderType(orderType.toUpperCase());
         order.setPrice(price);
         order.setQuantity(quantity);
         order.setStatus("OPEN");
@@ -119,7 +119,7 @@ public class OrderService
             Instrument newInstrument = instrumentRepository.findById(newInstrumentId).orElseThrow(() -> new RuntimeException("Instrument not found"));
             
             order.setInstrument(newInstrument);
-            order.setOrderType(newOrderType);
+            order.setOrderType(newOrderType.toUpperCase());
             order.setPrice(newPrice);
             order.setQuantity(newQuantity);
 
@@ -164,6 +164,7 @@ public class OrderService
     }
  
 	// find matching orders algo
+
 
     @Transactional
     public List<Trade> findMatchingOrders(Order order) {
@@ -219,7 +220,8 @@ public class OrderService
         return trades;
     }
 
-    private Trade createTrade(Order order, Order matchingOrder) {
+    private Trade createTrade(Order order, Order matchingOrder) 
+    {
         Trade trade = new Trade();
         trade.setOrder(order);
         trade.setInstrument(order.getInstrument());
@@ -230,6 +232,13 @@ public class OrderService
         trade.setCreatedOn(LocalDate.now());
         return trade;
     }
+
+
+	public List<Order> getOrdersForUser(User user) 
+	{
+		return orderRepository.findByUser(user);
+	}
+
 
 	
 }

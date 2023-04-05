@@ -17,7 +17,6 @@
     <th>Price</th>
     <th>Quantity</th>
     <th>Status</th>
-    <th>Action</th>
     </tr>
     
     <c:forEach var="order" items="${orders}">
@@ -28,12 +27,7 @@
     <td>${order.quantity}</td>
     <td>${order.status}</td>
     <td>
-        <form action="/orders/replace/${order.orderId}" method="get" style="display:inline;">
-            <button type="submit">Update</button>
-        </form>
-        <form action="/orders/cancel/${order.orderId}" method="get" style="display:inline;">
-            <button type="submit">Delete</button>
-        </form>
+        
     </td>
     </tr>
     </c:forEach>
