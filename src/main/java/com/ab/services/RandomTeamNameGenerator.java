@@ -19,7 +19,7 @@ public class RandomTeamNameGenerator {
 			"Margin Mavericks", "Orderly Conduct", "The Trading Tribe", "Market Movers", "Trade Nation",
 			"Stock Savants", "The Limit Orderlies", "The Bulls & Bears", "The Bid & Ask Brigade", "The Stock Slingers",
 			"The Trading Troopers", "The Market Mavericks", "The Orderly Traders", "The Trading Titans",
-			"The Candlestick Crusaders", "The Swing Traders", "The Market Magicians", "The Trading Thinkers",
+			"The Swing Traders", "The Market Magicians", "The Trading Thinkers",
 			"The Bullish Battalion", "The Orderly Conductors", "The Stock Surgeons", "The Market Masters",
 			"The Trade-o-holics", "The Orderly Mess", "The Bullish Bunch", "The Trading Titans", "Stock Shockers",
 			"The Risk Takers", "The Trading Post", "The Stock Stars", "The Trade Wizards", "Orderly Chaos",
@@ -30,8 +30,7 @@ public class RandomTeamNameGenerator {
 			"The Exceptionalists", "The Thread Titans", "The Inheritance Inquisitors", "The Polymorphism Pros",
 			"The Limit Orderlies", "The Bulls & Bears", "The Bid & Ask Brigade", "The Stock Slingers",
 			"The Trading Troopers", "The Market Mavericks", "The Orderly Traders", "The Trading Titans",
-			"The Candlestick Crusaders", "The Swing Traders", "The Market Magicians", "The Trading Thinkers",
-			"The Bullish Battalion", "The Orderly Conductors", "The Stock Surgeons");
+			"The Candlestick Crusaders");
 
 	public String generateRandomTeamName() {
 		int index;
