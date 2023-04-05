@@ -38,20 +38,22 @@ public class OrderController
     
     
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
-    public String showOrders(Model model) {
-        List<Order> orders = orderService.getAllOrders();
+    public String showOrders(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("user");
+        List<Order> orders = orderService.getOrdersForUser(loggedInUser);
         model.addAttribute("orders", orders);
         return "orders";
     }
     
     // View buy orders
-	@GetMapping("/orders/buy")
-	public ModelAndView getAllBuyOrders() {
-		ModelAndView mav = new ModelAndView("buyOrders");
-		List<Order> buyOrders = orderService.getAllBuyOrders();
-		mav.addObject("buyOrders", buyOrders);
-		return mav;
-	}
+    @GetMapping("/orders/buy")
+    public ModelAndView getAllBuyOrders(HttpSession session) {
+        ModelAndView mav = new ModelAndView("buyOrders");
+        List<Order> buyOrders = orderService.getAllBuyOrders();
+        session.setAttribute("buyOrders", buyOrders);
+        mav.addObject("buyOrders", buyOrders);
+        return mav;
+    }
 	
 	// Search buy orders by instrument name
     @GetMapping("/orders/search") 
@@ -64,13 +66,14 @@ public class OrderController
     }
 
 	// View sell orders
-	@GetMapping("/orders/sell")
-	public ModelAndView getAllSellOrders() {
-		ModelAndView mav = new ModelAndView("sellOrders");
-		List<Order> sellOrders = orderService.getAllSellOrders();
-		mav.addObject("sellOrders", sellOrders);
-		return mav;
-	}
+    @GetMapping("/orders/sell")
+    public ModelAndView getAllSellOrders(HttpSession session) {
+        ModelAndView mav = new ModelAndView("sellOrders");
+        List<Order> sellOrders = orderService.getAllSellOrders();
+        session.setAttribute("sellOrders", sellOrders);
+        mav.addObject("sellOrders", sellOrders);
+        return mav;
+    }
 	
 	// Search sell orders by instrument name
 	@GetMapping("orders/sell/search") 
@@ -97,7 +100,7 @@ public class OrderController
     @PostMapping("/orders/add")
     public String addOrder(@ModelAttribute("order") Order order,
                             @RequestParam("instrumentId") int instrumentId,
-                            HttpSession session) {
+                            HttpSession session, Model model) {
         // Get the logged-in user from the session
         User loggedInUser = (User) session.getAttribute("user");
         order.setUser(loggedInUser);
@@ -109,13 +112,30 @@ public class OrderController
 
         // Set the user and the Instrument object for the Order
         order.setUser(loggedInUser);
-        
+
         // Set the Instrument object for the Order
         Instrument instrument = instrumentService.getInstrumentById(instrumentId);
         order.setInstrument(instrument);
 
         orderService.createOrder(order.getUser().getUserId(), order.getInstrument().getInstrumentId(), order.getOrderType(), order.getPrice(), order.getQuantity(), order.getStatus());
-        return "redirect:/profile";
+        
+        // Add the new order to the model attributes for both views
+        List<Order> orders = orderService.getOrdersForUser(loggedInUser);
+        model.addAttribute("orders", orders);
+        model.addAttribute("order", new Order());
+        
+        // Update all orders
+        List<Order> allOrders = orderService.getOrderByStatus();
+        model.addAttribute("allOrders", allOrders);
+        
+        // Update buyOrders and sellOrders lists
+        List<Order> buyOrders = orderService.getAllBuyOrders();
+        model.addAttribute("buyOrders", buyOrders);
+
+        List<Order> sellOrders = orderService.getAllSellOrders();
+        model.addAttribute("sellOrders", sellOrders);
+        
+        return "userProfile";
     }
 
     
@@ -142,13 +162,13 @@ public class OrderController
         Instrument instrument = instrumentService.getInstrumentById(instrumentId);
         order.setInstrument(instrument);
         orderService.replaceOrder(orderId, order.getInstrument().getInstrumentId(), order.getOrderType(), order.getPrice(), order.getQuantity());
-        return "redirect:/orders";
+        return "redirect:/profile";
     }
 
     @GetMapping("/orders/cancel/{orderId}")
     public String cancelOrder(@PathVariable("orderId") Integer orderId) {
         orderService.cancelOrder(orderId);
-        return "redirect:/orders";
+        return "redirect:/profile";
     }
 
     @GetMapping("/orders/filled")

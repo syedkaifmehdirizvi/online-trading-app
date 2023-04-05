@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ab.controllers.OrderController;
 import com.ab.entities.Instrument;
 import com.ab.entities.Order;
+import com.ab.entities.Trade;
 import com.ab.entities.User;
 import com.ab.repositories.OrderRepository;
 import com.ab.services.OrderService;
@@ -125,7 +126,7 @@ public class OrderTest {
 	    buyOrder = orderRepositoryMock.save(buyOrder);
 
 	    // Call the findMatchingOrders method
-	    List<Order> matchingOrders = orderServiceMock.findMatchingOrders(buyOrder);
+	    List<Trade> matchingOrders = orderServiceMock.findMatchingOrders(buyOrder);
 
 	    // Check that the orders were matched and processed correctly
 	    List<Order> expectedMatchingOrders = new ArrayList<>();
