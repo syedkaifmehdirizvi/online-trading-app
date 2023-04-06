@@ -39,8 +39,7 @@ public class OrderController
     // remove this or adjust so we can have seperate tables for buy and sell
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     public String showOrders(Model model, HttpSession session) {
-        User loggedInUser = (User) session.getAttribute("user");
-        List<Order> orders = orderService.getOrdersForUser(loggedInUser);
+        List<Order> orders = orderService.getOrderByStatus();
         model.addAttribute("orders", orders);
         return "orders";
     }
@@ -65,7 +64,7 @@ public class OrderController
 	    return mav; 
     }
 
-	// View sell orders
+	// View sell orders - adjust query to not show filled
     @GetMapping("/orders/sell")
     public ModelAndView getAllSellOrders(HttpSession session) {
         ModelAndView mav = new ModelAndView("sellOrders");
@@ -118,8 +117,6 @@ public class OrderController
         order.setInstrument(instrument);
 
 
-     
-
         orderService.createOrder(order.getUser().getUserId(), order.getInstrument().getInstrumentId(), order.getOrderType(), order.getPrice(), order.getQuantity(), order.getStatus());
 
         
@@ -140,8 +137,6 @@ public class OrderController
         model.addAttribute("sellOrders", sellOrders);
         
         return "userProfile";
-       
-
 
     }
 

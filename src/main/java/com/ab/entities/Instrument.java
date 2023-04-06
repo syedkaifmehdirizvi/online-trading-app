@@ -24,12 +24,10 @@ public class Instrument
     
     @Column(name = "exchange")
     private String exchange;
-   
-    
+
 	public Instrument() {
 		super();
 	}
-
 
 	public Instrument(int instrumentId, String symbol, String instrumentName, String exchange) {
 		super();
@@ -38,7 +36,6 @@ public class Instrument
 		this.instrumentName = instrumentName;
 		this.exchange = exchange;
 	}
-
 	
 	public int getInstrumentId() {
 		return instrumentId;
@@ -71,8 +68,5 @@ public class Instrument
 	public void setExchange(String exchange) {
 		this.exchange = exchange;
 	}
-    
-    
-    
     
 }

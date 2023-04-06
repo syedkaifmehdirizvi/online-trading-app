@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-
 import com.ab.entities.Instrument;
 import com.ab.entities.Order;
 import com.ab.entities.Trade;
@@ -32,6 +30,89 @@ public class OrderService
 @Autowired
 
 private OrderRepository orderRepository;
+
+        Order order = new Order();
+        order.setUser(user);
+        order.setInstrument(instrument);
+        order.setOrderType(orderType.toUpperCase());
+        order.setPrice(price);
+        order.setQuantity(quantity);
+        order.setStatus("OPEN");
+        order.setCreatedOn(createdAt);
+
+        // return orderRepository.save(order);
+        Order createdOrder = orderRepository.save(order);
+        findMatchingOrders(createdOrder);
+
+        return createdOrder;
+    }
+  
+    
+    // rename to deleteOrder
+    public void cancelOrder(Integer orderId) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if (optionalOrder.isPresent()) {
+            Order order = optionalOrder.get();
+            orderRepository.delete(order);
+        } else {
+            throw new RuntimeException("Order not found");
+        }
+    }
+    
+    // rename to updateOrder
+    public Order replaceOrder(Integer orderId, Integer newInstrumentId, String newOrderType, double newPrice, Integer newQuantity)
+    {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if (optionalOrder.isPresent()) {
+            Order order = optionalOrder.get();
+            Instrument newInstrument = instrumentRepository.findById(newInstrumentId).orElseThrow(() -> new RuntimeException("Instrument not found"));
+            
+            order.setInstrument(newInstrument);
+            order.setOrderType(newOrderType.toUpperCase());
+            order.setPrice(newPrice);
+            order.setQuantity(newQuantity);
+
+            
+            //return orderRepository.save(order);
+            
+            Order updatedOrder = orderRepository.save(order);
+            findMatchingOrders(updatedOrder);
+            
+            return updatedOrder;
+        } 
+        else 
+        {
+            throw new RuntimeException("Order not found");
+        }
+    }
+    
+    // what is this used for?
+    public void updateOrderStatus(Integer orderId, String status) 
+    {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if (optionalOrder.isPresent()) {
+            Order order = optionalOrder.get();
+            order.setStatus(status);
+            orderRepository.save(order);
+        } 
+        else 
+        {
+            throw new RuntimeException("Order not found");
+        }
+        
+    }
+    
+    // not needed as we will use trade orders to display filled orders to the user?
+    public List<Order> getFilledOrders() 
+    {
+        return orderRepository.findFilledOrders();
+    }
+    
+    public Optional<Order> getOrderById(Integer orderId) {
+        return orderRepository.findById(orderId);
+    }
+ 
+
 
 
 @Autowired
