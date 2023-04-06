@@ -46,7 +46,6 @@ private OrderRepository orderRepository;
 
         return createdOrder;
     }
-  
     
     // rename to deleteOrder
     public void cancelOrder(Integer orderId) {
@@ -141,8 +140,9 @@ return orderRepository.findAllByOrderType("BUY");}
 
 
 
-public List<Order> getAllSellOrders(){
-return orderRepository.findAllByOrderType("SELL");}
+  public List<Order> getAllSellOrders() {
+    return orderRepository.findAllByOrderType("SELL");
+  }
 
 
 
@@ -367,7 +367,8 @@ public List<Order> getOrdersForUser(User user)
 
 }
 
+	public List<Order> getOrdersForUser(User user) {
+	    return orderRepository.findByUserAndStatusNot(user, "FILLED");
+	}
 
-
-
-
+}

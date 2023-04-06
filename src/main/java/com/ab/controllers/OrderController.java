@@ -136,7 +136,8 @@ public class OrderController
         List<Order> sellOrders = orderService.getAllSellOrders();
         model.addAttribute("sellOrders", sellOrders);
         
-        return "userProfile";
+        
+        return "redirect:/profile";
 
     }
 

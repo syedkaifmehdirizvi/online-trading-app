@@ -26,29 +26,21 @@
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/orders">Orders</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="/profile">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/orders">Trading History/a>
+          <a class="nav-link" href="/trades/history">Trading History</a>
         </li>
       </ul>
       <span class="navbar-text">
-       The Trade Nation
+        ${teamName}
       </span>
     </div>
   </div>
 </nav>
 
-	<h1>Home Page</h1>
-	
-	<h2>${teamName}</h2>
-	
-	<a href="/register">Register</a>
-	<a href="/login">Login</a>
-	<a href="/orders">Orders</a>
+	<h1>Welcome!</h1>
+
 	
 </body>
 </html>
