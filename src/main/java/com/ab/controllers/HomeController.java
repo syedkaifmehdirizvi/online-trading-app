@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.ab.services.RandomTeamNameGenerator;
-import com.ab.services.UserService;
 
 @Controller
 public class HomeController {
@@ -16,7 +15,7 @@ public class HomeController {
 	
     @GetMapping("/")
     public String showHomePage(Model model) {
-    	model.addAttribute("teamName", randomTeamNameGenerator.generateRandomTeamName());
-        return "home";
+        model.addAttribute("teamName", randomTeamNameGenerator.generateRandomTeamName());
+    	return "home";
     }
 }
