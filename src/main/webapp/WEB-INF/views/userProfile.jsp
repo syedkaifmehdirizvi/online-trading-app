@@ -47,8 +47,6 @@
         <tr>
             <th>Trade ID</th>
             <th>Order ID</th>
-            <th>Instrument Name</th>
-            <th>User</th>
             <th>Trade Type</th>
             <th>Price</th>
             <th>Quantity</th>
@@ -59,8 +57,6 @@
             <tr>
                 <td>${trade.tradeId}</td>
                 <td>${trade.order.orderId}</td>
-                <td>${trade.instrument.instrumentName}</td>
-                <td>${trade.user.username}</td>
                 <td>${trade.tradeType}</td>
                 <td>${trade.price}</td>
                 <td>${trade.quantity}</td>
