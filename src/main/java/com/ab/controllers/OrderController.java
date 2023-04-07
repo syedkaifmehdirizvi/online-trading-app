@@ -36,7 +36,7 @@ public class OrderController
     @Autowired
     private InstrumentService instrumentService;
     
-    // remove this or adjust so we can have seperate tables for buy and sell
+    // remove this or adjust so we can have separate tables for buy and sell
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     public String showOrders(Model model, HttpSession session) {
         List<Order> orders = orderService.getOrderByStatus();

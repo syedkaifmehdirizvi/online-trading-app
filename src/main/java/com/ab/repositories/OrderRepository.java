@@ -17,21 +17,6 @@ import com.ab.entities.User;
 public interface OrderRepository extends JpaRepository<Order, Integer>
 {
 
-
- @Query("SELECT o FROM Order o WHERE o.status IN ('Partially Filled', 'Fully Filled')")
- List<Order> findFilledOrders();
-
- public List<Order> findAllByOrderType(String orderType);
-
-@Query("FROM Instrument i WHERE i.instrumentName = :instrumentName")
- public List<Order> findByInstrumentName(@Param("instrumentName") String instrumentName);
-
- List<Order> findByUser(User user);
-
-
-
-
-
 	// what is this for - do we need it?
 	@Query("SELECT o FROM Order o WHERE o.status IN ('Partially Filled', 'Fully Filled')")
     List<Order> findFilledOrders();
