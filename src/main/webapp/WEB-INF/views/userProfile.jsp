@@ -95,20 +95,15 @@
     
 
     <!-- Trading History Section -->
-    <h3 class="text-center mt-5">Trading History</h3>
-   <table class="table" >
-  
-  <thread>
-  
-  	<tr>
-            <th scope="col">Trade ID</th>
-            <th scope="col">Order ID</th>
-            <th scope="col">Instrument Name</th>
-            <th scope="col">User</th>
-            <th scope="col">Trade Type</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Created On</th>
+    <h2>Trading History</h2>
+    <table>
+        <tr>
+            <th>Trade ID</th>
+            <th>Order ID</th>
+            <th>Trade Type</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Created On</th>
         </tr>
         
      </thread>
@@ -116,14 +111,12 @@
         
         <c:forEach var="trade" items="${tradingHistory}">
             <tr>
-                <td class="table-secondary">${trade.tradeId}</td>
-                <td class="table-secondary">${trade.order.orderId}</td>
-                <td class="table-secondary">${trade.instrument.instrumentName}</td>
-                <td class="table-secondary">${trade.user.username}</td>
-                <td class="table-secondary">${trade.tradeType}</td>
-                <td class="table-secondary">${trade.price}</td>
-                <td class="table-secondary">${trade.quantity}</td>
-                <td class="table-secondary">${trade.createdOn}</td>
+                <td>${trade.tradeId}</td>
+                <td>${trade.order.orderId}</td>
+                <td>${trade.tradeType}</td>
+                <td>${trade.price}</td>
+                <td>${trade.quantity}</td>
+                <td>${trade.createdOn}</td> 
             </tr>
             </tbody>
         </c:forEach>

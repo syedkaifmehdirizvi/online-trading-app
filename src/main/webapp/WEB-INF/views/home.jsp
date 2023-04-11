@@ -26,23 +26,33 @@
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/orders">Orders</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="/profile">Profile</a>
         </li>
         <li class="nav-item">
+<<<<<<< HEAD
           <a class="nav-link" href="/orders">Trading History</a>
         </li>
       </ul>
       <span class="navbar-text">
        ${teamName}
+=======
+          <a class="nav-link" href="/trades/history">Trading History</a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+        ${teamName}
+>>>>>>> 90c5a88358bc32f7e18be53badfa5440fa0b51d3
       </span>
     </div>
   </div>
 </nav>
 
+<<<<<<< HEAD
 	<h1>Welcome</h1>
+=======
+	<h1>Welcome!</h1>
+
+>>>>>>> 90c5a88358bc32f7e18be53badfa5440fa0b51d3
 	
 </body>
 </html>
