@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -50,7 +51,11 @@
     
     <!-- Orders Section -->
     <h5 class="text-center">Orders</h5>
-     <table class="table" >
+    
+    <div style="height: 300px; overflow-y: scroll;">
+    
+    
+  <table class="table">
   
   <thread>
   
@@ -90,12 +95,15 @@
   </table>
   
 
-    
+   </div>
        
     
 
     <!-- Trading History Section -->
-    <h2>Trading History</h2>
+    <h5 class="text-center">Trading History</h5>
+    
+    <div style="height: 100px; overflow-y: scroll;">
+    
     <table>
         <tr>
             <th>Trade ID</th>
@@ -120,7 +128,12 @@
             </tr>
             </tbody>
         </c:forEach>
+        
+        
     </table>
+    
+    </div>
+    
     <div class="text-center">
     	<a class="btn btn-primary btn-block btn-lg mt-5 gradient-custom-4 text-white" href="/orders/add">Add Order</a>
     	</div>
