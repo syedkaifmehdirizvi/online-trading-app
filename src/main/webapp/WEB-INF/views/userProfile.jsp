@@ -13,7 +13,6 @@
 </head>
 <body>
 <header>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"></a>
@@ -31,10 +30,15 @@
         <li class="nav-item">
           <a class="nav-link" href="/profile">Profile</a>
         </li>
+        <li class="nav-item">
+		    <a class="nav-link" href="${sessionScope.containsKey('user') ? '/logout' : '/login'}">
+		        ${sessionScope.containsKey('user') ? 'Logout' : 'Login'}
+		    </a>
+		</li>
        
       </ul>
       <span class="navbar-text">
-       The Trade Nation
+       ${teamName}
       </span>
     </div>
   </div>
@@ -55,43 +59,36 @@
     <div style="height: 300px; overflow-y: scroll;">
     
     
-  <table class="table">
-  
-  <thread>
-  
-  	<tr>
-  	
-  		<th scope="col"> Instrument Name </th>
-  		<th scope="col"> Order Type </th>
-  		<th scope="col"> Price </th>
-  		<th scope="col"> Quantity </th>
-  		<th scope="col"> Status</th>
-  		<th scope="col"> Action </th>
-  		
-  	</tr>
-  	
-  </thread>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Instrument Name</th>
+            <th scope="col">Order Type</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
   <tbody>
-  	 <c:forEach var="order" items="${orders}">
-		
-		<tr>
-		<td class="table-secondary"> ${order.instrument.instrumentName} </td>
-		<td class="table-secondary"> ${order.orderType}</td>
-		<td class="table-secondary"> ${order.price}</td>
-		<td class="table-secondary"> ${order.quantity}</td>
-		<td class="table-secondary"> ${order.status}</td>
-		 <td>
+        <c:forEach var="order" items="${orders}">
+            <tr>
+                <td class="table-secondary">${order.instrument.instrumentName}</td>
+                <td class="table-secondary">${order.orderType}</td>
+                <td class="table-secondary">${order.price}</td>
+                <td class="table-secondary">${order.quantity}</td>
+                <td class="table-secondary">${order.status}</td>
+                <td>
                     <form action="/orders/replace/${order.orderId}" method="get" style="display:inline;">
-                        <button type="button" class="btn btn-primary btn-block btn-sm gradient-custom-4  text-white" type="submit">Update</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-sm gradient-custom-4 text-white">Update</button>
                     </form>
                     <form action="/orders/cancel/${order.orderId}" method="get" style="display:inline;">
-                        <button class= "btn btn-primary btn-block btn-sm gradient-custom-4 text-white" type="submit">Delete</button>
+                        <button class="btn btn-primary btn-block btn-sm gradient-custom-4 text-white" type="submit">Delete</button>
                     </form>
                 </td>
-		</tr>
-		</tbody>
-	    </c:forEach>
-
+            </tr>
+        </c:forEach>
+    </tbody>
   </table>
   
 
