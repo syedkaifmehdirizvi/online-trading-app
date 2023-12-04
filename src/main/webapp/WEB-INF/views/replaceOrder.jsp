@@ -12,7 +12,6 @@
 </head>
 <body>
 <header>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"></a>
@@ -31,11 +30,14 @@
           <a class="nav-link" href="/profile">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/orders">Trading History</a>
-        </li>
+		    <a class="nav-link" href="${sessionScope.containsKey('user') ? '/logout' : '/login'}">
+		        ${sessionScope.containsKey('user') ? 'Logout' : 'Login'}
+		    </a>
+		</li>
+       
       </ul>
       <span class="navbar-text">
-       The Trade Nation
+       ${teamName}
       </span>
     </div>
   </div>
